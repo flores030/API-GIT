@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 2;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            outline: none;
+            background-color: rgb(255, 182, 182);
+      
+        }
+        .container{
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        h1{
+            font-size: 60px;
+        }
+        #usernameInput{
+            padding: 8px;
+            border-radius: 5px;
+            border-bottom: 1px solid rgb(87, 42, 42);
+            background-color: azure;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            margin: 10px;
+        }
+        button{
+            margin: 10px;
+            padding: 10px;
+            background-color: rgb(87, 0, 0);
+            color: #fff;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            Utilizando o fetch APi
+        </h1>
+        
+        <form onsubmit="return getProfile()">
+            <input type="text" class="user" id="usernameInput" placeholder="Digite o usuário" required>
+    
+            <button class="button" type="submit">Buscar</button>
+        </form>
+    
+        <div id="profileInfo" class="profile-info">
+          
+        </div>
+    </div>
+
+    <script>
+        function getProfile(){
+            event.preventDefault() 
+            const username = document.getElementById('usernameInput').value
+            let result = document.getElementById('profileInfo')
+            fetch(`https://api.github.com/users/${username}`)
+            
+            .then(data => {
+                result.innerHTML = `${data.avatar_url} <br> Usuário: ${data.name} <br> Total de seguidores: ${data.followers} <br> Está seguindo: ${data.following} pessoas <br> Criou conta em ${data.created_at}`
+            })
+        }
+    </script>
+</body>
+</html>
